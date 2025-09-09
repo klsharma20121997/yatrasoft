@@ -491,6 +491,20 @@ h6,
     }
 }
 
+/* Logo CSS start */
+.logo {
+    width: 70px;
+    height: 70px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+@media (max-width: 768px) { /* for tablets and smaller devices */
+  .logo {
+    width: 45px;
+    height: 45px;
+  }
+}
+/* Logo CSS End */
 /* our products start.. */
  .ourproducts{
    display:flex;
