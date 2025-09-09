@@ -490,3 +490,27 @@ h6,
         margin-bottom: -75px;
     }
 }
+
+/* our products start.. */
+ .ourproducts{
+   display:flex;
+   justify-content:space-between;
+   flex-wrap:wrap;
+ }
+
+ .b2c{
+    padding:30px 75px 30px 75px;
+    background:#f1f6fc;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:25px;
+    box-shadow:3px 3px 3px rgb(119, 117, 117);
+ }
+
+@media (max-width:555px){
+    .b2c{
+        width:100%;
+    }
+}
+
+/* our products end.. */
