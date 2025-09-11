@@ -171,6 +171,10 @@ h6,
     .navbar-dark .navbar-brand h1 {
         color: var(--primary);
     }
+
+    .footersec{
+        margin-left:0 !important;
+    }
 }
 
 @media (min-width: 992px) {

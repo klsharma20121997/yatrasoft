@@ -2,11 +2,35 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Startup - Startup Website Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <!-- -------- -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YatraSoft - website</title>
+    <meta name="description"
+        content="Explore the best trekking and tour packages for the Himalayas. Book  trips to Kasol, Manali, Kedarnath, and more with ParvatYatra." />
+
+    <meta property="og:title" content="YatraSoft - website">
+    <meta property="og:description"
+        content="Affordable Himalayan trekking and tour packages for Manali, Kasol, Kedarnath & more.">
+    <meta property="og:image" content="https://www.yatrasoft.com/img/yatrasoft_logo.png">
+    <meta property="og:url" content="https://www.yatrasoft.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="canonical" href="https://www.yatrasoft.com" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon.png">
+    <link rel="icon" type="img/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="img/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- -------- -->
+    <!-- extra from nomad -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="max-image-preview:large" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="YatraSoft - website" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image:secure_url" content="https://www.yatrasoft.com/img/yatrasoft_logo.png" />
+
+    <!-- extra from nomad -->
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -17,7 +41,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    
+
     <!-- favicon icon -->
     <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
@@ -37,7 +61,7 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <!-- favicon icon -->
-     
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -106,9 +130,9 @@
                 <div class="navbar-nav ms-auto py-0">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="#aboutsection" class="nav-item nav-link">About</a>
-                    <a href="#servicessection" class="nav-item nav-link">Product</a>
+                    <a href="#productSection" class="nav-item nav-link">Product</a>
                     <a href="#servicessection" class="nav-item nav-link">Services</a>
-                    <a href="#servicessection" class="nav-item nav-link">Pricing</a>
+                    <a href="#pricingSection" class="nav-item nav-link">Pricing</a>
 
                     <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
@@ -131,7 +155,7 @@
                 </div>
                 <!-- <butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal"
                     data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton> -->
-                <a href="" class="btn btn-primary py-2 px-4 ms-3">Free Quote</a>
+                <a href="#quoteSection" class="btn btn-primary py-2 px-4 ms-3">Free Quote</a>
             </div>
         </nav>
 
@@ -201,8 +225,8 @@
 
 
     <!-- Facts Start -->
-    <div class="container-fluid facts py-2 pt-lg-0">
-        <div class="container py-5 pt-lg-0">
+    <div class="container-fluid facts pt-lg-0">
+        <div class="container pt-5 pt-lg-0">
             <div class="row gx-0">
                 <div class="col-lg-4 wow zoomIn" data-wow-delay="0.1s">
                     <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4"
@@ -250,8 +274,8 @@
 
 
     <!-- About Start -->
-    <div class="container-fluid wow fadeInUp py-5" data-wow-delay="0.1s" id="aboutsection">
-        <div class="container py-5">
+    <div class="container-fluid wow fadeInUp pt-5" data-wow-delay="0.1s" id="aboutsection">
+        <div class="container pt-5">
             <div class="row g-5">
                 <div class="col-lg-7">
                     <div class="section-title position-relative pb-3 mb-5">
@@ -296,8 +320,8 @@
     <!-- About End -->
 
     <!-- Pricing Plan Start -->
-    <div class="container-fluid wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5">
+    <div class="container-fluid wow fadeInUp pt-5" data-wow-delay="0.1s" id="pricingSection">
+        <div class="container pt-5">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
                 <h5 class="fw-bold text-primary text-uppercase">Pricing Plans</h5>
                 <h1 class="mb-0">We are Offering Competitive Prices for Our Clients</h1>
@@ -382,28 +406,30 @@
 
     <!-- our product start.. -->
 
-    <div class="container-fluid my-5 py-2 wow fadeInUp" data-wow-delay="0.1s">
-        <h2 class="text-center">OUR PRODUCTS</h2>
-        <div class="container ourproducts mt-5">
-            <div class="b2c text-center wow slideInUp" data-wow-delay="0.2s">
-                <img src="img/b2c.png" width="80px">
-                <h6 class="mt-4">B2C Software</h6>
-                <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
-            </div>
-            <div class="b2c text-center wow slideInUp" data-wow-delay="0.4s">
-                <img src="img/b2b.png" width="80px">
-                <h6 class="mt-4">B2B Software</h6>
-                <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
-            </div>
-            <div class="b2c text-center wow slideInUp" data-wow-delay="0.6s">
-                <img src="img/bookingengine.png" width="80px">
-                <h6 class="mt-4">Booking Software</h6>
-                <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
-            </div>
-            <div class="b2c text-center wow slideInUp" data-wow-delay="0.9s">
-                <img src="img/dmc.png" width="80px">
-                <h6 class="mt-4">Travel Website</h6>
-                <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
+    <div class="container-fluid pt-5 wow fadeInUp" data-wow-delay="0.1s" id="productSection">
+        <div class="container pt-5">
+            <h2 class="text-center">OUR PRODUCTS</h2>
+            <div class="container ourproducts mt-5">
+                <div class="b2c text-center wow slideInUp" data-wow-delay="0.2s">
+                    <img src="img/b2c.png" width="80px">
+                    <h6 class="mt-4">B2C Software</h6>
+                    <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
+                </div>
+                <div class="b2c text-center wow slideInUp" data-wow-delay="0.4s">
+                    <img src="img/b2b.png" width="80px">
+                    <h6 class="mt-4">B2B Software</h6>
+                    <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
+                </div>
+                <div class="b2c text-center wow slideInUp" data-wow-delay="0.6s">
+                    <img src="img/bookingengine.png" width="80px">
+                    <h6 class="mt-4">Booking Software</h6>
+                    <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
+                </div>
+                <div class="b2c text-center wow slideInUp" data-wow-delay="0.9s">
+                    <img src="img/dmc.png" width="80px">
+                    <h6 class="mt-4">Travel Website</h6>
+                    <button type="button" class="btn btn-primary px-2 mt-1">EXPLORE</button>
+                </div>
             </div>
         </div>
     </div>
@@ -411,8 +437,8 @@
     <!-- our product end.. -->
 
     <!-- Features Start -->
-    <div class="container-fluid py-2 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-3">
+    <div class="container-fluid pt-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container pt-5">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
                 <h5 class="fw-bold text-primary text-uppercase">Why Choose Us</h5>
                 <h1 class="mb-0">We Are Here to Grow Your Business Exponentially</h1>
@@ -471,8 +497,8 @@
 
 
     <!-- Service Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" id="servicessection">
-        <div class="container py-5">
+    <div class="container-fluid pt-5 wow fadeInUp" data-wow-delay="0.1s" id="servicessection">
+        <div class="container pt-5">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
                 <h5 class="fw-bold text-primary text-uppercase">Our Services</h5>
                 <h1 class="mb-0">Custom IT Solutions for Your Successful Business</h1>
@@ -563,8 +589,8 @@
     <!-- Service End -->
 
     <!-- Quote Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5">
+    <div class="container-fluid pt-5 wow fadeInUp" data-wow-delay="0.1s" id="quoteSection">
+        <div class="container pt-5">
             <div class="row g-5">
                 <div class="col-lg-7">
                     <div class="section-title position-relative pb-3 mb-5">
@@ -634,8 +660,8 @@
 
 
     <!-- Testimonial Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5">
+    <div class="container-fluid pt-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container pt-5">
             <div class="section-title text-center position-relative pb-3 mb-4 mx-auto" style="max-width: 600px;">
                 <h5 class="fw-bold text-primary text-uppercase">Testimonial</h5>
                 <h1 class="mb-0">What Our Clients Say About Our Digital Services</h1>
@@ -860,7 +886,6 @@
     </div>
     <!-- Vendor End -->
 
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light mt-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
@@ -869,7 +894,7 @@
                     <div
                         class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-primary p-4">
                         <a href="index.html" class="navbar-brand">
-                            <h1 class="m-0 text-white"><i class="fa fa-user-tie me-2"></i>Startup</h1>
+                            <h1 class="m-0 text-white"><i class="fa fa-user-tie me-2"></i>Yatrasoft</h1>
                         </a>
                         <p class="mt-3 mb-4">Lorem diam sit erat dolor elitr et, diam lorem justo amet clita stet eos
                             sit. Elitr dolor duo lorem, elitr clita ipsum sea. Diam amet erat lorem stet eos. Diam amet
@@ -884,29 +909,29 @@
                 </div>
                 <div class="col-lg-8 col-md-6">
                     <div class="row gx-5">
-                        <div class="col-lg-4 col-md-12 pt-5 mb-5">
+                        <div class="col-lg-7 col-md-12 pt-5 mb-5 footersec" style="margin-left:3rem;">
                             <div class="section-title section-title-sm position-relative pb-3 mb-4">
                                 <h3 class="text-light mb-0">Get In Touch</h3>
                             </div>
                             <div class="d-flex mb-2">
                                 <i class="bi bi-geo-alt text-primary me-2"></i>
-                                <p class="mb-0">123 Street, New York, USA</p>
+                                <p class="mb-0">2/32 Shivaji Nagar , Gurugram , Hariyana , India</p>
                             </div>
                             <div class="d-flex mb-2">
                                 <i class="bi bi-envelope-open text-primary me-2"></i>
-                                <p class="mb-0">info@example.com</p>
+                                <p class="mb-0">info@yatrasoft.com</p>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <i class="bi bi-envelope-open text-primary me-2"></i>
+                                <p class="mb-0">https://www.yatrasoft.com</p>
                             </div>
                             <div class="d-flex mb-2">
                                 <i class="bi bi-telephone text-primary me-2"></i>
-                                <p class="mb-0">+012 345 67890</p>
+                                <p class="mb-0">8865898068</p>
                             </div>
                             <div class="d-flex mt-4">
                                 <a class="btn btn-primary btn-square me-2" href="#"><i
-                                        class="fab fa-twitter fw-normal"></i></a>
-                                <a class="btn btn-primary btn-square me-2" href="#"><i
                                         class="fab fa-facebook-f fw-normal"></i></a>
-                                <a class="btn btn-primary btn-square me-2" href="#"><i
-                                        class="fab fa-linkedin-in fw-normal"></i></a>
                                 <a class="btn btn-primary btn-square" href="#"><i
                                         class="fab fa-instagram fw-normal"></i></a>
                             </div>
@@ -918,19 +943,19 @@
                             <div class="link-animated d-flex flex-column justify-content-start">
                                 <a class="text-light mb-2" href="#"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="#aboutsection"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                                <a class="text-light mb-2" href="#"><i
+                                <a class="text-light mb-2" href="#productSection"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Product</a>
+                                <a class="text-light mb-2" href="#servicessection"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                                <a class="text-light mb-2" href="#"><i
-                                        class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                                <a class="text-light mb-2" href="#"><i
-                                        class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                                <a class="text-light" href="#"><i
+                                <a class="text-light mb-2" href="#pricingSection"><i
+                                        class="bi bi-arrow-right text-primary me-2"></i>Pricing</a>
+                                <a class="text-light" href="contact.html"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
+                        <!-- <div class="col-lg-4 col-md-12 pt-0 pt-lg-5 mb-5">
                             <div class="section-title section-title-sm position-relative pb-3 mb-4">
                                 <h3 class="text-light mb-0">Popular Links</h3>
                             </div>
@@ -948,7 +973,7 @@
                                 <a class="text-light" href="#"><i
                                         class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -959,12 +984,9 @@
             <div class="row justify-content-end">
                 <div class="col-lg-8 col-md-6">
                     <div class="d-flex align-items-center justify-content-center" style="height: 75px;">
-                        <p class="mb-0">&copy; <a class="text-white border-bottom" href="#">Your Site Name</a>. All
-                            Rights Reserved.
-
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed by <a class="text-white border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                        </p>
+                        <!-- <p class="mb-0">&copy; <a class="text-white border-bottom" href="#">Your Site Name</a>. All Rights Reserved. Designed by <a class="text-white border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                        </p> -->
+                        Copyright <i class="fas fa-copyright me-2 ms-1"></i> by Yatra Soft 2025, All right reserved.
                     </div>
                 </div>
             </div>
