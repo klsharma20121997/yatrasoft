@@ -532,3 +532,24 @@ h6,
 }
 
 /* our products end.. */
+
+/* comman by manual */
+@media (max-width:650px){
+    .content_div{
+        padding:100px 16px 16px 16px !important;
+    }
+}
+
+@media (max-width:420px){
+    .content_div{
+        padding:20px 16px 16px 16px !important;
+    }
+
+    .creative{
+        font-size:22px !important;
+    }
+}
+
+
+
+/* comman by manual */
