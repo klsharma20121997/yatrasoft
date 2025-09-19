@@ -650,6 +650,10 @@ h6,
         bottom: 70%;
     }
 
+    .navtop{
+        height:600px !important;
+    }
+
 }
 
 /* comman by manual */
