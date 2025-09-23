@@ -1,0 +1,31 @@
+:root {
+    --primary-color: rgb(141, 141, 192);
+}
+
+
+.formcontrollabel {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.formdiv {
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input[type="file"]::file-selector-button {
+    background: var(--primary-color);
+}
+
+.hrline {
+    border: 3px solid blue;
+}
+
+table .form-control,
+table select {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+}
