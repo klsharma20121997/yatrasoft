@@ -83,18 +83,17 @@
     <div class="container formdiv my-5">
         <form class="" id="formid" onsubmit="handleform(event)">
             <div class="my-4 formcontrollabel">
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Full Name(as per Id)<span class="text-danger">*</span></label>
-                    <input type="text" name="userName" class="form-control" placeholder="Full Name" required
-                        id="fullname">
+                    <input type="text" name="userName" class="form-control" placeholder="Full Name" required id="fullname">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Contact Number<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" name="contactNumber" placeholder="Mobile Number" required
                         id="contactnumber" title="Mobile Number is to be 10 digit. and first digit is to be 6 to 9"
                         pattern="[6-9][0-9]{9}">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Email<span class="text-danger">*</span></label>
                     <input class="form-control" type="email" name="email" placeholder="Email" required id="email">
                 </div>
@@ -102,49 +101,49 @@
             <hr class="hrline">
             <h5 class="mt-2">Desination Details</h5>
             <div class="my-4 formcontrollabel">
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Destination<span class="text-danger">*</span></label>
                     <select class="form-select" id="destination" name="destination" required>
                         <option value="">Select</option>
                     </select>
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Travel Date<span class="text-danger">*</span></label>
                     <input class="form-control" type="date" name="TravelDate" required id="traveldate">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Number of Travellers<span class="text-danger">*</span></label>
                     <input class="form-control" type="number" name="numberOfTravellers" placeholder="Travellers"
                         required id="numberoftravellers">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Upload Aadhar Card<span class="text-danger">*</span></label>
-                    <input class="form-control" type="file" name="GovernmentId" required id="governmentid">
+                    <input class="form-control" type="file" name="GovernmentId" id="governmentid">
                 </div>
             </div>
             <hr class="hrline">
             <h5 class="mt-2">Emergency Contact Details</h5>
             <div class="my-4 formcontrollabel">
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Contact Name<span class="text-danger">*</span></label>
                     <input type="text" name="contactName" class="form-control" placeholder="Contact Name" required
                         id="EmgContactname">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Contact Number<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" name="EmgContactNumber" placeholder="Mobile Number" required
                         id="EmgContactnumber" title="Mobile Number is to be 10 digit. and first digit is to be 6 to 9"
                         pattern="[6-9][0-9]{9}">
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 inputctrl">
                     <label class="form-label" for="">Upload Aadhar Card<span class="text-danger">*</span></label>
-                    <input class="form-control" type="file" name="EmgContactAadhar" required id="EmgContactAadhar">
+                    <input class="form-control" type="file" name="EmgContactAadhar" accept="image/*" id="EmgContactAadhar">
                 </div>
             </div>
             <hr class="hrline">
             <h5 class="mt-2">Add Travellers</h5>
             <div class="table-responsive">
-                <table style="min-width:770px;" class="my-4 table table-bordered" id="tableformid">
+                <table style="min-width:770px; display:none;" class="my-4 table table-bordered" id="tableformid">
 
                 </table>
             </div>
@@ -174,8 +173,11 @@
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="index.js"></script>
+    <script>
+        LoadDestinations();
+    </script>
 </body>
 
 </html>
