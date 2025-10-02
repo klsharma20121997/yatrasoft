@@ -1,3 +1,6 @@
+
+//apiUrl = 'http://localhost:5226/api/';
+apiUrl = 'https://api.klords.com/api/';
 function addTraveller(g) {
     g.preventDefault();
 
@@ -46,7 +49,7 @@ function addTraveller(g) {
                         <input class="form-control" type="file" name="TravellerAadhar" id="travelleraadhar">
                     </td>
                     <td class="text-center pt-3">
-                        <i style="cursor:pointer; color:red;" onclick="deletemethod(this)" class="fa-solid fa-trash-can"></i>
+                        <i style="cursor:pointer; color:red;" onclick="deleteTraveller(this)" class="fa-solid fa-trash-can"></i>
                     </td>`;
 }
 
@@ -74,10 +77,10 @@ function handleform(e) {
     let BookingAadharCard = document.querySelector('[name="GovernmentId"]').files[0] || null;
     let EmergencyContactName = document.querySelector('[name="contactName"]').value;
     let EmergencyContactNumber = document.querySelector('[name="EmgContactNumber"]').value;
-    let EmergencyContactAadhar = document.querySelector('[name="EmgContactAadhar"]').files[0] || null;
+    let EmergencyAadharCard = document.querySelector('[name="EmgContactAadhar"]').files[0] || null;
     let CompanyCode = "PARVAT";
 
-    let formdata = { CustomerName, CustomerMobileNumber, CustomerEmailId, DestinationId, TravelDate, NumTravellers, BookingAadharCard, EmergencyContactName, EmergencyContactNumber, EmergencyContactAadhar, CompanyCode };
+    let saveFormPayload = { CustomerName, CustomerMobileNumber, CustomerEmailId, DestinationId, TravelDate, NumTravellers, BookingAadharCard, EmergencyContactName, EmergencyContactNumber, EmergencyAadharCard, CompanyCode };
 
     tablerows.forEach(row => {
         let Name = row.querySelector('[name="TravellerName"]').value;
@@ -90,45 +93,46 @@ function handleform(e) {
         Travellers.push({ Name, Age, Gender, Mobile, AadharCard });
     });
 
-    formdata.Travellers = Travellers;
-
+    
     const fileformData = new FormData();
-    console.log(fileformData);
-
     fileformData.append('BookingAadharCard', BookingAadharCard);
-    fileformData.append('EmergencyContactAadhar', EmergencyContactAadhar);
-
-    let travellersAadhar = [];
-    Travellers.forEach((adr) => {
-        let onyAadhar = adr.AadharCard;
-        travellersAadhar.push(onyAadhar);
-        console.log(travellersAadhar);
+    fileformData.append('EmergencyAadharCard', EmergencyAadharCard);
+    Travellers.forEach((adr,index) => {
+        fileformData.append('AadharCard_'+index, adr.AadharCard);
     })
-    fileformData.append('AadharCard', travellersAadhar);
-    fileformData.append('companyCode', "PARYAT")
-
-    // fileformData.file = EmergencyContactAadhar;
-    // fileformData.companyCode = "PARYAT";
-
+    
     $.ajax({
-        url: 'https://api.klords.com/api/Upload/file', // Update with your API endpoint
+        url: apiUrl + 'Upload/file', // Update with your API endpoint
         type: 'POST',
         data: fileformData,
         processData: false, // important!
         contentType: false, // important!
         success: function (response) {
             if (response.status == 'Success') {
-                // showSuccessMessage();
-                // getCompanySettings();
                 console.log(response);
+                if(response.fileLists && response.fileLists.length > 0){
+                    response.fileLists.forEach(row => {
+                        if(row.fileOrginalName === 'BookingAadharCard'){
+                            saveFormPayload.BookingAadharCard = row.filePath;
+                        }
+                        else if(row.fileOrginalName === 'EmergencyAadharCard'){
+                            saveFormPayload.EmergencyAadharCard = row.filePath;
+                        }
+                        else {
+                            let index = row.fileOrginalName.split("_").pop();
+                            Travellers[index].AadharCard = row.filePath;
+                        }
+                    });
+                    saveFormPayload.Travellers = Travellers;
+                }
+                SaveBookingDetails(saveFormPayload);
             }
             else {
-                alert(response.status + ': Error in SaveCompanySettings.Please try again.');
+                alert(response.status + ': Error in SaveBookingDetails.Please try again.');
             }
             console.log(response);
         },
         error: function (error) {
-            // alert('Error Submitting Company Settings.Please try again.');
             console.error(error);
         }
     });
@@ -149,20 +153,20 @@ function handleform(e) {
 
 
 
-    let url = "https://api.klords.com/api/Upload/booking/save";
-    fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formdata)
-    }).then((res) => {
-        return res.json;
-    }).then((val) => {
-        console.log("success", val);
-    }).catch((er) => {
-        console.error(er);
-    })
+    // let url = "https://api.klords.com/api/Upload/booking/save";
+    // fetch(url, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(saveFormPayload)
+    // }).then((res) => {
+    //     return res.json;
+    // }).then((val) => {
+    //     console.log("success", val);
+    // }).catch((er) => {
+    //     console.error(er);
+    // })
 
-    console.log(formdata);
+    // console.log(formdata);
 
     // if (document.querySelector("#tableformid tbody") !== null) {
     //     document.querySelector("#tableformid tbody").innerHTML = '';
@@ -175,9 +179,24 @@ function handleform(e) {
     //window.location.reload();
 }
 
+//Save Booking Details
+ function SaveBookingDetails(payload) {
+    $.ajax({
+        url: apiUrl + 'Upload/booking/save', // Update with your API endpoint
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (error) {
+            alert('Error SaveBookingDetails.Please try again.');
+        }
+    });
+ }
 
 //delete the table row
-function deletemethod(icon) {
+function deleteTraveller(icon) {
     let row = icon.closest('tr');
     let inputs = row.querySelectorAll("input");
     let hasvalue = false;
@@ -187,7 +206,6 @@ function deletemethod(icon) {
             hasvalue = true;
         }
     })
-
     if (hasvalue) {
         if (confirm('Are you sure you want to delete this row?')) {
             row.remove();  // delete only if user confirms
@@ -198,87 +216,17 @@ function deletemethod(icon) {
 
 }
 
-//for display the destination
-// let arr = [
-//     "CHAKRATA TIGERFALL",
-//     "CHOPTA TUNGNATH 2N/3D",
-//     "HAMPTA PASS TREK",
-//     "HARSHIL VALLEY & GARTANG GALI 2N/3D",
-//     "KANATAL & TEHRI LAKE",
-//     "KASOL & TOSH 2N/3D",
-//     "KASOL & KHEERGANGA 2N/3D",
-//     "KEDARNATH & BADRINATH with TUNGNATH (Do Dham Yatra)",
-//     "KEDARNATH & BADRINATH (Delhi to Delhi)6d/5n",
-//     "KEDARNATH & BADRINATH (Delhi to Delhi)5d/4n",
-//     "KEDARNATH & BADRINATH (4N/5D) Yatra",
-//     "Kedarnath & Tungnath(3N/4D) Ex-Delhi",
-//     "KEDARNATH & TUNGNATH (3N/4D) | Ex - Haridwar",
-//     "KEDARNATH (3N/4D) Yatra",
-//     "KEDARNATH (3N/4D) Yatra",
-//     "MADHMAHESHWAR (3N/4D) Yatra",
-//     "Manali, Rohtang & Kasol (2N/3D)",
-//     "Manali, Rohtang & Kasol (3N/4D)",
-//     "Manali, Sissu & Kasol (2N/3D)",
-//     "Manali, Sissu & Kasol (3N/4D)",
-//     "McLeodganj & Triund Trek (2N/3D)",
-//     "Mukteshwar & Kainchi Dham (2N/3D)",
-//     "Spiti Valley (6N/7D)",
-//     "Udaipur & Mount Abu (3N/4D)",
-//     "Udaipur & Kumbhalgarh (3N/4D)",
-//     "Valley of Flowers Trek (6D/5N)",
-//     "Yulla Kanda Trek (5D/4N)"
-// ];
-// let selectdestination = document.getElementById('destination');
-// arr.forEach((row) => {
-//     let option = document.createElement('option');
-//     option.value = row;
-//     option.textContent = row;
-//     selectdestination.appendChild(option);
-// })
 
 document.getElementById('traveldate').addEventListener('blur', () => {
     let traveldatevalue = document.getElementById('traveldate').value;
     let dateobj = new Date(traveldatevalue);
-
     let todaydate = new Date();
-    // todaydate.setHours(0,0,0,0);
 
-    if (dateobj <= todaydate) {
+    if (dateobj < todaydate) {
         document.getElementById('traveldate').value = "";
         alert("Plz enter upcoming travel date");
     }
 })
-
-// for select the destination from api
-
-// function LoadDestinations() {
-//     let formdata = { companycode: "PARVAT" };
-//     let URL = "https://api.klords.com/api/User/DestinationList";
-
-//     fetch(URL, {
-//         method: "POST",
-//         header: { 'content-type': 'application/json' },
-//         body: JSON.stringify(formdata)
-//     }).then((response) => {
-//         // return response.json();
-//         if (response != null) {
-//             //  BindDestinationData(response);
-//             console.log(response)
-//         }
-//     })
-//         //    .then((val)=>{
-//         //       if(val != null){
-//         //         BindDestinationData(val);
-//         //         console.log(val);
-//         //     }
-//         //    })
-//         .catch((err) => {
-//             console.error(err);
-//         })
-// }
-
-//  apiUrl = 'http://localhost:5226/api/';
-apiUrl = 'https://api.klords.com/api/';
 
 function LoadDestinations() {
     return new Promise((resolve, reject) => {
