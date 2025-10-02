@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Booking Wizard — with Travellers</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg,#6a11cb 0%, #2575fc 100%);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    .card {
+      width:100%;
+      max-width:980px;
+      border-radius:14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .card-body { padding:28px; }
+    .progress { height:8px; border-radius:10px; }
+    .form-step { display:none; }
+    .form-step-active { display:block; }
+    .small-muted { color: #6c757d; font-size:.9rem; }
+    /* responsive small tweaks */
+    @media (max-width:640px) {
+      .card { padding:12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-body bg-white">
+      <h3 class="text-center mb-3 fw-bold">Parvat Yatra — Booking Wizard</h3>
+
+      <!-- progress -->
+      <div class="mb-4">
+        <div class="progress">
+          <div id="progressBar" class="progress-bar bg-primary" style="width:25%"></div>
+        </div>
+        <div class="d-flex justify-content-between mt-2 small-muted">
+          <div>Primary</div><div>Emergency</div><div>Travel & Travellers</div><div>Review</div>
+        </div>
+      </div>
+
+      <form id="bookingForm" novalidate>
+        <!-- STEP 1: Primary -->
+        <div class="form-step form-step-active p-2" data-step="0">
+          <h5 class="mb-3">Primary Applicant</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full name (as per ID)*</label>
+              <input id="primaryName" class="form-control" required />
+              <div class="invalid-feedback">Please enter full name.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Mobile number*</label>
+              <input id="primaryContact" class="form-control" required pattern="\d{10}" placeholder="10 digits" />
+              <div class="invalid-feedback">Enter 10 digit mobile number.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email*</label>
+              <input id="primaryEmail" type="email" class="form-control" required />
+              <div class="invalid-feedback">Enter valid email.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Upload Aadhar (optional)</label>
+              <input id="primaryAadhar" type="file" class="form-control" accept=".pdf,image/*" />
+              <div class="form-text small-muted">We show filename in review (file upload not sent).</div>
+            </div>
+          </div>
+
+          <div class="mt-4 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary btn-sm" id="toStep1Next">Next</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Emergency -->
+        <div class="form-step p-2" data-step="1">
+          <h5 class="mb-3">Emergency Contact</h5>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="sameAsPrimary">
+            <label class="form-check-label" for="sameAsPrimary">Same as Primary Applicant</label>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Contact name*</label>
+              <input id="emgName" class="form-control" required />
+              <div class="invalid-feedback">Please enter emergency contact name.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Contact number*</label>
+              <input id="emgNumber" class="form-control" required pattern="\d{10}" placeholder="10 digits" />
+              <div class="invalid-feedback">Enter 10 digit number.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Upload Aadhar (optional)</label>
+              <input id="emgAadhar" type="file" class="form-control" accept=".pdf,image/*" />
+            </div>
+          </div>
+
+          <div class="mt-4 d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-secondary btn-sm prev-btn">Back</button>
+            <button type="button" class="btn btn-primary btn-sm next-btn">Next</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Travel & Travellers -->
+        <div class="form-step p-2" data-step="2">
+          <h5 class="mb-3">Travel Details & Travellers</h5>
+
+          <div class="row g-3 mb-2">
+            <div class="col-md-4">
+              <label class="form-label">Destination*</label>
+              <select id="destination" class="form-select" required>
+                <option value="">Select</option>
+                <option>Kedarnath</option>
+                <option>Badrinath</option>
+                <option>Gangotri</option>
+                <option>Yamunotri</option>
+              </select>
+              <div class="invalid-feedback">Choose a destination.</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Travel Date*</label>
+              <input id="travelDate" type="date" class="form-control" required />
+              <div class="invalid-feedback">Choose travel date.</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Number of Travellers*</label>
+              <input id="numTravellers" type="number" min="1" class="form-control" required placeholder="e.g. 3" />
+              <div class="invalid-feedback">Enter number of travellers (>=1).</div>
+            </div>
+          </div>
+
+          <hr />
+
+          <h6>Add Traveller (one by one)</h6>
+          <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+              <label class="form-label">Name*</label>
+              <input id="travName" class="form-control" />
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Age*</label>
+              <input id="travAge" type="number" min="0" class="form-control" />
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Gender*</label>
+              <select id="travGender" class="form-select">
+                <option>Male</option><option>Female</option><option>Other</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Mobile*</label>
+              <input id="travMobile" class="form-control" placeholder="10 digits" />
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Aadhar (optional)</label>
+              <input id="travAadhar" type="file" class="form-control" accept=".pdf,image/*" />
+            </div>
+          </div>
+
+          <div class="mt-2 d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-primary" id="addTravellerBtn">Add Traveller</button>
+            <div class="small-muted align-self-center">You must add exactly the number of travellers you entered above before continuing.</div>
+          </div>
+
+          <div class="table-responsive mt-3">
+            <table class="table table-sm table-bordered align-middle">
+              <thead class="table-light">
+                <tr><th>#</th><th>Name</th><th>Age</th><th>Gender</th><th>Mobile</th><th>Aadhar</th><th>Action</th></tr>
+              </thead>
+              <tbody id="travellersTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="mt-3 d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-secondary prev-btn">Back</button>
+            <button type="button" class="btn btn-primary next-btn">Next</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Review & Submit -->
+        <div class="form-step p-2" data-step="3">
+          <h5 class="mb-3">Review & Submit</h5>
+
+          <div id="reviewArea" class="mb-3"></div>
+
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-secondary prev-btn">Back</button>
+            <button type="submit" class="btn btn-success">Confirm & Submit</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // State
+    const steps = Array.from(document.querySelectorAll('.form-step'));
+    const progressBar = document.getElementById('progressBar');
+    let currentStep = 0;
+    let travellers = []; // array of traveller objects
+
+    // Helpers
+    function updateSteps() {
+      steps.forEach((s, i) => {
+        s.classList.toggle('form-step-active', i === currentStep);
+      });
+      const pct = Math.round(((currentStep + 1) / steps.length) * 100);
+      progressBar.style.width = pct + '%';
+      // scroll to top of card for small screens
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Basic validation for a step
+    function validateStep(index) {
+      const stepEl = steps[index];
+      let valid = true;
+
+      // check required inputs/selects inside this step
+      const requiredEls = stepEl.querySelectorAll('input[required], select[required], textarea[required]');
+      requiredEls.forEach(el => {
+        // reset bootstrap validation classes
+        el.classList.remove('is-invalid', 'is-valid');
+
+        if (el.type === 'file') {
+          // allow optional file; if required you would check files.length
+          if (el.hasAttribute('required') && el.files.length === 0) {
+            el.classList.add('is-invalid'); valid = false;
+          } else el.classList.add('is-valid');
+        } else if (el.type === 'number' || el.type === 'tel') {
+          const v = el.value?.toString().trim();
+          if (!v) { el.classList.add('is-invalid'); valid = false; }
+          else {
+            if (el.hasAttribute('pattern')) {
+              const re = new RegExp(el.getAttribute('pattern'));
+              if (!re.test(v)) { el.classList.add('is-invalid'); valid = false; }
+              else el.classList.add('is-valid');
+            } else { el.classList.add('is-valid'); }
+          }
+        } else {
+          if (!el.value || el.value.toString().trim() === '') { el.classList.add('is-invalid'); valid = false; }
+          else el.classList.add('is-valid');
+        }
+      });
+
+      // step-specific checks
+      if (valid && index === 2) {
+        // travellers step: ensure travellers array length equals number in numTravellers
+        const num = parseInt(document.getElementById('numTravellers').value, 10);
+        if (!num || num < 1) {
+          document.getElementById('numTravellers').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('numTravellers').classList.remove('is-invalid');
+          if (travellers.length !== num) {
+            alert(`You added ${travellers.length} traveller(s). Please add exactly ${num} traveller(s) before continuing.`);
+            valid = false;
+          }
+        }
+      }
+
+      return valid;
+    }
+
+    // Navigation buttons
+    document.querySelectorAll('.next-btn').forEach(btn => btn.addEventListener('click', () => {
+      if (validateStep(currentStep)) {
+        if (currentStep < steps.length - 1) currentStep++;
+        if (currentStep === steps.length - 1) populateReview();
+        updateSteps();
+      }
+    }));
+    document.querySelectorAll('.prev-btn').forEach(btn => btn.addEventListener('click', () => {
+      if (currentStep > 0) currentStep--;
+      updateSteps();
+    }));
+    document.getElementById('toStep1Next').addEventListener('click', () => {
+      // validate step 0 before moving
+      if (validateStep(0)) { currentStep = 1; updateSteps(); }
+    });
+
+    // Prevent past dates
+    const travelDate = document.getElementById('travelDate');
+    travelDate.min = new Date().toISOString().split('T')[0];
+
+    // SAME AS PRIMARY handler
+    document.getElementById('sameAsPrimary').addEventListener('change', function () {
+      const isChecked = this.checked;
+      const pName = document.getElementById('primaryName').value.trim();
+      const pContact = document.getElementById('primaryContact').value.trim();
+      const pEmail = document.getElementById('primaryEmail').value.trim();
+      if (isChecked) {
+        document.getElementById('emgName').value = pName;
+        document.getElementById('emgNumber').value = pContact;
+        // note: cannot programmatically set file inputs for security reasons
+      } else {
+        document.getElementById('emgName').value = '';
+        document.getElementById('emgNumber').value = '';
+      }
+    });
+
+    // Travellers: add, render, delete
+    const travellersTableBody = document.getElementById('travellersTableBody');
+
+    function renderTravellers() {
+      travellersTableBody.innerHTML = '';
+      travellers.forEach((t, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${idx+1}</td>
+          <td>${escapeHtml(t.name)}</td>
+          <td>${t.age}</td>
+          <td>${escapeHtml(t.gender)}</td>
+          <td>${escapeHtml(t.mobile)}</td>
+          <td>${escapeHtml(t.aadharFilename || '')}</td>
+          <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-idx="${idx}">Delete</button></td>
+        `;
+        travellersTableBody.appendChild(tr);
+      });
+      // attach delete handlers
+      travellersTableBody.querySelectorAll('button[data-idx]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const i = parseInt(btn.getAttribute('data-idx'), 10);
+          travellers.splice(i, 1);
+          renderTravellers();
+        });
+      });
+    }
+
+    function addTraveller() {
+      const requiredNum = parseInt(document.getElementById('numTravellers').value || 0, 10);
+      if (!requiredNum || requiredNum < 1) {
+        alert('Please set "Number of Travellers" first (>=1).');
+        return;
+      }
+      if (travellers.length >= requiredNum) {
+        alert(`You already added ${travellers.length} traveller(s). Remove one if you want to replace.`);
+        return;
+      }
+
+      const name = document.getElementById('travName').value.trim();
+      const age = parseInt(document.getElementById('travAge').value || '', 10);
+      const gender = document.getElementById('travGender').value;
+      const mobile = document.getElementById('travMobile').value.trim();
+      const fileInput = document.getElementById('travAadhar');
+      const aFile = fileInput.files && fileInput.files.length ? fileInput.files[0] : null;
+      const aadharFilename = aFile ? aFile.name : '';
+
+      // basic validation
+      if (!name || !age || !mobile) {
+        alert('Please fill Name, Age and Mobile for traveller.');
+        return;
+      }
+      if (!/^\d{10}$/.test(mobile)) {
+        alert('Traveller mobile should be 10 digits.');
+        return;
+      }
+
+      travellers.push({ name, age, gender, mobile, aadharFilename });
+      renderTravellers();
+
+      // clear inputs
+      document.getElementById('travName').value = '';
+      document.getElementById('travAge').value = '';
+      document.getElementById('travGender').value = 'Male';
+      document.getElementById('travMobile').value = '';
+      fileInput.value = '';
+    }
+
+    document.getElementById('addTravellerBtn').addEventListener('click', addTraveller);
+
+    // Review population
+    function populateReview() {
+      const primaryName = document.getElementById('primaryName').value.trim();
+      const primaryContact = document.getElementById('primaryContact').value.trim();
+      const primaryEmail = document.getElementById('primaryEmail').value.trim();
+      const primaryAadharFile = document.getElementById('primaryAadhar').files[0];
+      const primaryAadharName = primaryAadharFile ? primaryAadharFile.name : '(not uploaded)';
+
+      const emgName = document.getElementById('emgName').value.trim();
+      const emgNumber = document.getElementById('emgNumber').value.trim();
+      const emgAadharFile = document.getElementById('emgAadhar').files[0];
+      const emgAadharName = emgAadharFile ? emgAadharFile.name : '(not uploaded)';
+
+      const destination = document.getElementById('destination').value;
+      const travelDateVal = document.getElementById('travelDate').value;
+      const numTravellers = document.getElementById('numTravellers').value;
+
+      const reviewArea = document.getElementById('reviewArea');
+      let html = `
+        <div class="mb-3 p-3 border rounded bg-light">
+          <h6>Primary Applicant</h6>
+          <p class="mb-1"><strong>Name:</strong> ${escapeHtml(primaryName)}</p>
+          <p class="mb-1"><strong>Mobile:</strong> ${escapeHtml(primaryContact)}</p>
+          <p class="mb-1"><strong>Email:</strong> ${escapeHtml(primaryEmail)}</p>
+          <p class="mb-0"><strong>Aadhar:</strong> ${escapeHtml(primaryAadharName)}</p>
+        </div>
+
+        <div class="mb-3 p-3 border rounded bg-light">
+          <h6>Emergency Contact</h6>
+          <p class="mb-1"><strong>Name:</strong> ${escapeHtml(emgName)}</p>
+          <p class="mb-1"><strong>Mobile:</strong> ${escapeHtml(emgNumber)}</p>
+          <p class="mb-0"><strong>Aadhar:</strong> ${escapeHtml(emgAadharName)}</p>
+        </div>
+
+        <div class="mb-3 p-3 border rounded bg-light">
+          <h6>Travel</h6>
+          <p class="mb-1"><strong>Destination:</strong> ${escapeHtml(destination)}</p>
+          <p class="mb-1"><strong>Travel Date:</strong> ${escapeHtml(travelDateVal)}</p>
+          <p class="mb-0"><strong>Travellers Count:</strong> ${escapeHtml(numTravellers)}</p>
+        </div>
+
+        <div class="mb-3 p-3 border rounded bg-light">
+          <h6>Travellers</h6>
+      `;
+
+      if (travellers.length === 0) {
+        html += `<p class="mb-0 text-muted">No travellers added.</p>`;
+      } else {
+        html += `<div class="table-responsive"><table class="table table-sm"><thead><tr><th>#</th><th>Name</th><th>Age</th><th>Gender</th><th>Mobile</th><th>Aadhar</th></tr></thead><tbody>`;
+        travellers.forEach((t, i) => {
+          html += `<tr><td>${i+1}</td><td>${escapeHtml(t.name)}</td><td>${t.age}</td><td>${escapeHtml(t.gender)}</td><td>${escapeHtml(t.mobile)}</td><td>${escapeHtml(t.aadharFilename || '(not uploaded)')}</td></tr>`;
+        });
+        html += `</tbody></table></div>`;
+      }
+
+      html += `</div>`;
+      reviewArea.innerHTML = html;
+    }
+
+    // Submit
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      // last validation
+      if (!validateStep(currentStep)) return;
+
+      // build payload (for demonstration)
+      const payload = {
+        primary: {
+          name: document.getElementById('primaryName').value.trim(),
+          contact: document.getElementById('primaryContact').value.trim(),
+          email: document.getElementById('primaryEmail').value.trim(),
+          aadharFilename: (document.getElementById('primaryAadhar').files[0] || {}).name || null
+        },
+        emergency: {
+          name: document.getElementById('emgName').value.trim(),
+          contact: document.getElementById('emgNumber').value.trim(),
+          aadharFilename: (document.getElementById('emgAadhar').files[0] || {}).name || null
+        },
+        travel: {
+          destination: document.getElementById('destination').value,
+          travelDate: document.getElementById('travelDate').value,
+          numTravellers: parseInt(document.getElementById('numTravellers').value,10)
+        },
+        travellers: travellers
+      };
+
+      // In real app: send to server via fetch / FormData (files), here we simply show success and log
+      console.log('SUBMIT PAYLOAD', payload);
+      // success UI
+      showSuccessToast('Booking submitted successfully! Check console for payload.');
+      // optionally reset form
+      // document.getElementById('bookingForm').reset();
+    });
+
+    // Small toast for success
+    function showSuccessToast(message) {
+      const toastEl = document.createElement('div');
+      toastEl.className = 'toast align-items-center text-bg-success border-0';
+      toastEl.role = 'alert';
+      toastEl.style.position = 'fixed';
+      toastEl.style.right = '20px';
+      toastEl.style.bottom = '20px';
+      toastEl.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      document.body.appendChild(toastEl);
+      const bsToast = new bootstrap.Toast(toastEl, { delay: 3500 });
+      bsToast.show();
+      toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+    }
+
+    // Utility: escape text for HTML
+    function escapeHtml(text) {
+      if (text === null || text === undefined) return '';
+      return String(text)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    // wire up initial state
+    updateSteps();
+  </script>
+</body>
+</html>
