@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -10,32 +11,62 @@
 
   <style>
     body {
-      background: linear-gradient(135deg,#6a11cb 0%, #2575fc 100%);
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
+
     .card {
-      width:100%;
-      max-width:980px;
-      border-radius:14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
-      overflow:hidden;
+      width: 100%;
+      max-width: 980px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+      overflow: hidden;
     }
-    .card-body { padding:28px; }
-    .progress { height:8px; border-radius:10px; }
-    .form-step { display:none; }
-    .form-step-active { display:block; }
-    .small-muted { color: #6c757d; font-size:.9rem; }
+
+   .card .wild-card{
+       max-width: 1200px;
+    }
+
+    .card-body {
+      padding: 28px;
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 10px;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step-active {
+      display: block;
+    }
+
+    .small-muted {
+      color: #6c757d;
+      font-size: .9rem;
+    }
+
+    .step3traval {
+      width: 100%;
+    }
+
     /* responsive small tweaks */
     @media (max-width:640px) {
-      .card { padding:12px; }
+      .card {
+        padding: 12px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="card">
@@ -48,7 +79,10 @@
           <div id="progressBar" class="progress-bar bg-primary" style="width:25%"></div>
         </div>
         <div class="d-flex justify-content-between mt-2 small-muted">
-          <div>Primary</div><div>Emergency</div><div>Travel & Travellers</div><div>Review</div>
+          <div>Primary</div>
+          <div>Emergency</div>
+          <div>Travel & Travellers</div>
+          <div>Review</div>
         </div>
       </div>
 
@@ -116,18 +150,18 @@
         </div>
 
         <!-- STEP 3: Travel & Travellers -->
-        <div class="form-step p-2" data-step="2">
+        <div class="form-step p-2 step3traval" data-step="2">
           <h5 class="mb-3">Travel Details & Travellers</h5>
 
           <div class="row g-3 mb-2">
             <div class="col-md-4">
               <label class="form-label">Destination*</label>
               <select id="destination" class="form-select" required>
-                <option value="">Select</option>
-                <option>Kedarnath</option>
+                <!-- <option value="">Select</option>
+                 <option>Kedarnath</option>
                 <option>Badrinath</option>
                 <option>Gangotri</option>
-                <option>Yamunotri</option>
+                <option>Yamunotri</option> -->
               </select>
               <div class="invalid-feedback">Choose a destination.</div>
             </div>
@@ -158,7 +192,9 @@
             <div class="col-md-2">
               <label class="form-label">Gender*</label>
               <select id="travGender" class="form-select">
-                <option>Male</option><option>Female</option><option>Other</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
               </select>
             </div>
             <div class="col-md-3">
@@ -173,13 +209,22 @@
 
           <div class="mt-2 d-flex gap-2">
             <button type="button" class="btn btn-sm btn-outline-primary" id="addTravellerBtn">Add Traveller</button>
-            <div class="small-muted align-self-center">You must add exactly the number of travellers you entered above before continuing.</div>
+            <div class="small-muted align-self-center">You must add exactly the number of travellers you entered above
+              before continuing.</div>
           </div>
 
           <div class="table-responsive mt-3">
             <table class="table table-sm table-bordered align-middle">
               <thead class="table-light">
-                <tr><th>#</th><th>Name</th><th>Age</th><th>Gender</th><th>Mobile</th><th>Aadhar</th><th>Action</th></tr>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Mobile</th>
+                  <th>Aadhar</th>
+                  <th>Action</th>
+                </tr>
               </thead>
               <tbody id="travellersTableBody"></tbody>
             </table>
@@ -215,7 +260,7 @@
     const steps = Array.from(document.querySelectorAll('.form-step'));
     const progressBar = document.getElementById('progressBar');
     let currentStep = 0;
-    let travellers = []; // array of traveller objects
+    let Travellers = []; // array of traveller objects
 
     // Helpers
     function updateSteps() {
@@ -226,6 +271,12 @@
       progressBar.style.width = pct + '%';
       // scroll to top of card for small screens
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (currentStep === 3) {
+        card.classList.add("wild-card");
+        // document.querySelector('.card').style.maxWidth = "1120px";
+      }
+
     }
 
     // Basic validation for a step
@@ -269,8 +320,8 @@
           valid = false;
         } else {
           document.getElementById('numTravellers').classList.remove('is-invalid');
-          if (travellers.length !== num) {
-            alert(`You added ${travellers.length} traveller(s). Please add exactly ${num} traveller(s) before continuing.`);
+          if (Travellers.length !== num) {
+            alert(`You added ${Travellers.length} traveller(s). Please add exactly ${num} traveller(s) before continuing.`);
             valid = false;
           }
         }
@@ -321,15 +372,15 @@
 
     function renderTravellers() {
       travellersTableBody.innerHTML = '';
-      travellers.forEach((t, idx) => {
+      Travellers.forEach((t, idx) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${idx+1}</td>
-          <td>${escapeHtml(t.name)}</td>
-          <td>${t.age}</td>
-          <td>${escapeHtml(t.gender)}</td>
-          <td>${escapeHtml(t.mobile)}</td>
-          <td>${escapeHtml(t.aadharFilename || '')}</td>
+          <td>${idx + 1}</td>
+          <td>${escapeHtml(t.Name)}</td>
+          <td>${t.Age}</td>
+          <td>${escapeHtml(t.Gender)}</td>
+          <td>${escapeHtml(t.Mobile)}</td>
+          <td>${escapeHtml(t.AadharCard.name || '')}</td>
           <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-idx="${idx}">Delete</button></td>
         `;
         travellersTableBody.appendChild(tr);
@@ -338,7 +389,7 @@
       travellersTableBody.querySelectorAll('button[data-idx]').forEach(btn => {
         btn.addEventListener('click', e => {
           const i = parseInt(btn.getAttribute('data-idx'), 10);
-          travellers.splice(i, 1);
+          Travellers.splice(i, 1);
           renderTravellers();
         });
       });
@@ -350,30 +401,31 @@
         alert('Please set "Number of Travellers" first (>=1).');
         return;
       }
-      if (travellers.length >= requiredNum) {
-        alert(`You already added ${travellers.length} traveller(s). Remove one if you want to replace.`);
+      if (Travellers.length >= requiredNum) {
+        alert(`You already added ${Travellers.length} traveller(s). Remove one if you want to replace.`);
         return;
       }
 
-      const name = document.getElementById('travName').value.trim();
-      const age = parseInt(document.getElementById('travAge').value || '', 10);
-      const gender = document.getElementById('travGender').value;
-      const mobile = document.getElementById('travMobile').value.trim();
+      const Name = document.getElementById('travName').value.trim();
+      const Age = parseInt(document.getElementById('travAge').value || '', 10);
+      const Gender = document.getElementById('travGender').value;
+      const Mobile = document.getElementById('travMobile').value.trim();
       const fileInput = document.getElementById('travAadhar');
-      const aFile = fileInput.files && fileInput.files.length ? fileInput.files[0] : null;
-      const aadharFilename = aFile ? aFile.name : '';
-
+      const aFile = fileInput.files[0] ? fileInput.files[0] : 'Not Uploaded';
+      // const aFile = fileInput.files && fileInput.files.length ? fileInput.files[0] : null;
+      const AadharCard = aFile;
+      // const aadharFilename = aFile ? aFile.name : '';
       // basic validation
-      if (!name || !age || !mobile) {
+      if (!Name || !Age || !Mobile) {
         alert('Please fill Name, Age and Mobile for traveller.');
         return;
       }
-      if (!/^\d{10}$/.test(mobile)) {
+      if (!/^\d{10}$/.test(Mobile)) {
         alert('Traveller mobile should be 10 digits.');
         return;
       }
 
-      travellers.push({ name, age, gender, mobile, aadharFilename });
+      Travellers.push({ Name, Age, Gender, Mobile, AadharCard });
       renderTravellers();
 
       // clear inputs
@@ -431,12 +483,12 @@
           <h6>Travellers</h6>
       `;
 
-      if (travellers.length === 0) {
+      if (Travellers.length === 0) {
         html += `<p class="mb-0 text-muted">No travellers added.</p>`;
       } else {
         html += `<div class="table-responsive"><table class="table table-sm"><thead><tr><th>#</th><th>Name</th><th>Age</th><th>Gender</th><th>Mobile</th><th>Aadhar</th></tr></thead><tbody>`;
-        travellers.forEach((t, i) => {
-          html += `<tr><td>${i+1}</td><td>${escapeHtml(t.name)}</td><td>${t.age}</td><td>${escapeHtml(t.gender)}</td><td>${escapeHtml(t.mobile)}</td><td>${escapeHtml(t.aadharFilename || '(not uploaded)')}</td></tr>`;
+        Travellers.forEach((t, i) => {
+          html += `<tr><td>${i + 1}</td><td>${escapeHtml(t.Name)}</td><td>${t.Age}</td><td>${escapeHtml(t.Gender)}</td><td>${escapeHtml(t.Mobile)}</td><td>${escapeHtml(t.AadharCard.name || '(not uploaded)')}</td></tr>`;
         });
         html += `</tbody></table></div>`;
       }
@@ -445,6 +497,9 @@
       reviewArea.innerHTML = html;
     }
 
+    //apiUrl = 'http://localhost:5226/api/';
+    apiUrl = 'https://api.klords.com/api/';
+
     // Submit
     document.getElementById('bookingForm').addEventListener('submit', function (e) {
       e.preventDefault();
@@ -452,33 +507,143 @@
       if (!validateStep(currentStep)) return;
 
       // build payload (for demonstration)
-      const payload = {
-        primary: {
-          name: document.getElementById('primaryName').value.trim(),
-          contact: document.getElementById('primaryContact').value.trim(),
-          email: document.getElementById('primaryEmail').value.trim(),
-          aadharFilename: (document.getElementById('primaryAadhar').files[0] || {}).name || null
-        },
-        emergency: {
-          name: document.getElementById('emgName').value.trim(),
-          contact: document.getElementById('emgNumber').value.trim(),
-          aadharFilename: (document.getElementById('emgAadhar').files[0] || {}).name || null
-        },
-        travel: {
-          destination: document.getElementById('destination').value,
-          travelDate: document.getElementById('travelDate').value,
-          numTravellers: parseInt(document.getElementById('numTravellers').value,10)
-        },
-        travellers: travellers
+      const saveFormPayload = {
+        // primary: {
+        CustomerName: document.getElementById('primaryName').value.trim(),
+        CustomerMobileNumber: document.getElementById('primaryContact').value.trim(),
+        CustomerEmailId: document.getElementById('primaryEmail').value.trim(),
+        BookingAadharCard: document.getElementById('primaryAadhar').files[0] || null,
+        // BookingAadharCard: (document.getElementById('primaryAadhar').files[0] || {}).name || null,
+        // },
+        // emergency: {
+        EmergencyContactName: document.getElementById('emgName').value.trim(),
+        EmergencyContactNumber: document.getElementById('emgNumber').value.trim(),
+        EmergencyAadharCard: document.getElementById('emgAadhar').files[0] || null,
+        // },
+        // travel: {
+        DestinationId: document.getElementById('destination').value,
+        TravelDate: document.getElementById('travelDate').value,
+        NumTravellers: parseInt(document.getElementById('numTravellers').value, 10),
+        CompanyCode: "PARVAT"
+        // },
+        // Travellers: Travellers
       };
 
+
+
+      const fileformData = new FormData();
+      fileformData.append('BookingAadharCard', saveFormPayload.BookingAadharCard);
+      fileformData.append('EmergencyAadharCard', saveFormPayload.EmergencyAadharCard);
+      Travellers.forEach((adr, index) => {
+        fileformData.append('AadharCard_' + index, adr.AadharCard);
+      })
+
+      $.ajax({
+        url: apiUrl + 'Upload/file', // Update with your API endpoint
+        type: 'POST',
+        data: fileformData,
+        processData: false, // important!
+        contentType: false, // important!
+        success: function (response) {
+          if (response.status == 'Success') {
+            console.log(response);
+            if (response.fileLists && response.fileLists.length > 0) {
+              response.fileLists.forEach(row => {
+                if (row.fileOrginalName === 'BookingAadharCard') {
+                  saveFormPayload.BookingAadharCard = row.filePath;
+                }
+                else if (row.fileOrginalName === 'EmergencyAadharCard') {
+                  saveFormPayload.EmergencyAadharCard = row.filePath;
+                }
+                else {
+                  let index = row.fileOrginalName.split("_").pop();
+                  Travellers[index].AadharCard = row.filePath;
+                }
+              });
+              saveFormPayload.Travellers = Travellers;
+            }
+            SaveBookingDetails(saveFormPayload);
+          }
+          else {
+            alert(response.status + ': Error in SaveBookingDetails.Please try again.');
+          }
+          console.log(response);
+        },
+        error: function (error) {
+          console.error(error);
+        }
+      });
+
+
+      console.log(Travellers);
       // In real app: send to server via fetch / FormData (files), here we simply show success and log
-      console.log('SUBMIT PAYLOAD', payload);
+      console.log('SUBMIT PAYLOAD', saveFormPayload);
       // success UI
-      showSuccessToast('Booking submitted successfully! Check console for payload.');
+      showSuccessToast('Booking submitted successfully! Check console for saveFormPayload.');
       // optionally reset form
       // document.getElementById('bookingForm').reset();
     });
+
+
+    //Save Booking Details
+    function SaveBookingDetails(payload) {
+      $.ajax({
+        url: apiUrl + 'Upload/booking/save', // Update with your API endpoint
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (error) {
+          alert('Error SaveBookingDetails.Please try again.');
+        }
+      });
+    }
+
+
+    function LoadDestinations() {
+      return new Promise((resolve, reject) => {
+        // let userDetails = getFromLocalStorage('LogedInUser');
+        const formData = { companyCode: "PARYAT" };
+
+        $.ajax({
+          url: apiUrl + 'User/DestinationList', // Update with your API endpoint
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(formData),
+          success: function (response) {
+            if (response != null) {
+              // console.log(response);
+              BindDestinationData(response);
+              resolve(true); // Resolve the promise with true on success
+            } else {
+              resolve(false); // Resolve with false if response is null
+            }
+          },
+          error: function (error) {
+            alert('Error in LoadDestinations. Please try again.');
+            console.error(error);
+            reject(error); // Reject the promise on error
+          }
+        });
+      });
+    }
+
+
+    function BindDestinationData(destinationData) {
+      const ddlDestination = document.getElementById("destination");
+      ddlDestination.innerHTML = '<option value="">Select destination</option>';
+
+      // Populate the dropdown with API response
+      destinationData.forEach(destination => {
+        const option = document.createElement("option");
+        option.value = destination.destinationId; // Assuming your API returns an object with 'value'
+        option.textContent = destination.destinationName; // Assuming your API returns an object with 'label'
+        ddlDestination.appendChild(option);
+      });
+    }
+
 
     // Small toast for success
     function showSuccessToast(message) {
@@ -514,5 +679,10 @@
     // wire up initial state
     updateSteps();
   </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+
+  <script> LoadDestinations()</script>
 </body>
+
 </html>
