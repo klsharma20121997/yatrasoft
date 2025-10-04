@@ -2,21 +2,69 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Booking Wizard — with Travellers</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YatraSoft - Booking Form</title>
+  <meta name="description"
+    content="YatraSoft offers travel websites, booking forms, invoice & receipt apps, custom software, Google page setup, and IT support for travel businesses and beyond." />
 
+  <meta property="og:title" content="YatraSoft - website">
+  <meta property="og:description"
+    content="Innovative IT solutions for travel agencies, tour operators, and small businesses.">
+  <meta property="og:image" content="https://www.yatrasoft.com/img/yatrasoft_logo.png">
+  <meta property="og:url" content="https://www.yatrasoft.com">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="canonical" href="https://www.yatrasoft.com" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon.png">
+  <link rel="icon" type="img/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="img/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <!-- -------- -->
+  <!-- extra from nomad -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="robots" content="max-image-preview:large" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="YatraSoft - website" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image:secure_url" content="https://www.yatrasoft.com/img/yatrasoft_logo.png" />
+
+  <!-- extra from nomad -->
+
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- favicon icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <!-- favicon icon -->
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <style>
     body {
-      /* background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); */
-      background-image:url("image/tiger.jpg");
-      /* background-image:url("image/greenery.png"); */
-      /* background-repeat: no-repeat; */
-      /* background-size:cover;
-      background-position:center; */
+      background: linear-gradient(135deg, #091e3e 0%, #06A3DA 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -63,6 +111,33 @@
       width: 100%;
     }
 
+    .button-gradient {
+      background: linear-gradient(135deg, #091e3e 0%, #06A3DA 100%);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .success-msg-div {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .success-msg-p {
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #091e3e 20%, #06A3DA 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+    }
+
     /* responsive small tweaks */
     @media (max-width:640px) {
       .card {
@@ -76,10 +151,12 @@
 
   <div class="card">
     <div class="card-body bg-white">
-      <h3 class="text-center mb-3 fw-bold">Parvat Yatra — Booking Wizard</h3>
+
+      <h3 class="text-center mb-3 fw-bold"><img src="img/logo2.png" alt="YatraSoft Logo"
+          style="height:40px;vertical-align:middle;margin-right:6px;">Parvat Yatra — Booking Form</h3>
 
       <!-- progress -->
-      <div class="mb-4">
+      <div id="divProgressbar" class="mb-4">
         <div class="progress">
           <div id="progressBar" class="progress-bar bg-primary" style="width:25%"></div>
         </div>
@@ -162,11 +239,6 @@
             <div class="col-md-4">
               <label class="form-label">Destination*</label>
               <select id="destination" class="form-select" required>
-                <!-- <option value="">Select</option>
-                 <option>Kedarnath</option>
-                <option>Badrinath</option>
-                <option>Gangotri</option>
-                <option>Yamunotri</option> -->
               </select>
               <div class="invalid-feedback">Choose a destination.</div>
             </div>
@@ -249,13 +321,28 @@
 
           <div class="d-flex justify-content-between">
             <button type="button" class="btn btn-outline-secondary prev-btn">Back</button>
-            <button type="submit" class="btn btn-success">Confirm & Submit</button>
+            <button type="submit" class="button-gradient">Confirm & Submit</button>
           </div>
         </div>
 
       </form>
+      <div id="successMsg" class="success-msg-div" style="display: none;">
+        <p class="success-msg-p">
+          We’ve received your booking! Sit back and relax — our team will connect with you soon.
+        </p>
+      </div>
+
+
     </div>
+    <footer
+      style="width:100%;background:#f5f5f5;text-align:center;padding:12px;font-size:14px;border-top:1px solid #ddd;">
+      <img src="img/yatrasoft_logo.png" alt="YatraSoft Logo"
+        style="height:20px;vertical-align:middle;margin-right:6px;">
+      Powered by <a href="https://www.yatrasoft.com" target="_blank"
+        style="text-decoration:none;color:#0073e6;font-weight:500;">YatraSoft - Travel Solutions</a>
+    </footer>
   </div>
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -578,15 +665,6 @@
           console.error(error);
         }
       });
-
-
-      console.log(Travellers);
-      // In real app: send to server via fetch / FormData (files), here we simply show success and log
-      console.log('SUBMIT PAYLOAD', saveFormPayload);
-      // success UI
-      showSuccessToast('Booking submitted successfully! Check console for saveFormPayload.');
-      // optionally reset form
-      // document.getElementById('bookingForm').reset();
     });
 
 
@@ -598,7 +676,8 @@
         contentType: 'application/json',
         data: JSON.stringify(payload),
         success: function (response) {
-          console.log(response);
+          showSuccessToast();
+          document.getElementById('bookingForm').reset();
         },
         error: function (error) {
           alert('Error SaveBookingDetails.Please try again.');
@@ -652,22 +731,9 @@
 
     // Small toast for success
     function showSuccessToast(message) {
-      const toastEl = document.createElement('div');
-      toastEl.className = 'toast align-items-center text-bg-success border-0';
-      toastEl.role = 'alert';
-      toastEl.style.position = 'fixed';
-      toastEl.style.right = '20px';
-      toastEl.style.bottom = '20px';
-      toastEl.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">${message}</div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      document.body.appendChild(toastEl);
-      const bsToast = new bootstrap.Toast(toastEl, { delay: 3500 });
-      bsToast.show();
-      toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+      document.getElementById("divProgressbar").style.display = "none";
+      document.getElementById("bookingForm").style.display = "none";
+      document.getElementById("successMsg").style.display = "flex";
     }
 
     // Utility: escape text for HTML
